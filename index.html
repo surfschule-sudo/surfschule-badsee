@@ -943,12 +943,14 @@ function makeLabel(t) {
   if (t.typ === 'wochenende') {
     const sa = new Date(t.datum + 'T12:00:00');
     const so = new Date(t.datum + 'T12:00:00'); so.setDate(so.getDate()+1);
-    const MK = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+    const MONATE = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    // Format exakt wie im Google Formular: "Sa/So 30./31. Mai"
     if (sa.getMonth() !== so.getMonth()) {
-      return `Sa/So ${sa.getDate()}. ${MK[sa.getMonth()]}/${so.getDate()}. ${MK[so.getMonth()]}`;
+      return `Sa/So ${sa.getDate()}./${so.getDate()}. ${MONATE[so.getMonth()]}`;
     }
-    return `Sa/So ${sa.getDate()}./${so.getDate()}. ${MK[sa.getMonth()]}`;
+    return `Sa/So ${sa.getDate()}./${so.getDate()}. ${MONATE[sa.getMonth()]}`;
   }
+  // Einzeltag – freier Text
   const d = new Date(t.datum + 'T12:00:00');
   const MK = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
   const dow = ['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()];
